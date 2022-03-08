@@ -1,9 +1,17 @@
+import {Header, Hero, Browse, Arrived, Client, AsideMenu, Footer} from './components';
+
 function App() {
-  return (
-      <h1 className="text-3xl font-bold underline text-blue-200">
-        Hello world!
-      </h1>
-  );
+    return (
+        <>
+            <Header/>
+            <Hero/>
+            <Browse/>
+            <Arrived/>
+            <Client/>
+            <AsideMenu/>
+            <Footer/>
+        </>
+    );
 }
 
 export default App;
