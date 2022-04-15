@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import {
   Header,
   Hero,
@@ -9,10 +11,12 @@ import {
   Footer,
   Offline,
 } from "./components";
+import { Profile, Splash } from "./pages";
 
 function App() {
   const [items, setItems] = useState([]);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isLoading, setIsLoading] = useState(true);
 
   function handleOffline() {
     setIsOffline(!navigator.onLine);
@@ -40,6 +44,10 @@ function App() {
       document.body.appendChild(script);
     };
 
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
     getProducts();
 
     handleOffline();
@@ -51,6 +59,10 @@ function App() {
       window.removeEventListener("offline", handleOffline);
     };
   }, [isOffline]);
+
+  if (isLoading) {
+    return <Splash />;
+  }
 
   return (
     <>
@@ -66,4 +78,13 @@ function App() {
   );
 }
 
-export default App;
+function Routes() {
+  return (
+    <Router>
+      <Route path="/" exact component={App} />
+      <Route path="/profile" exact component={Profile} />
+    </Router>
+  );
+}
+
+export default Routes;
